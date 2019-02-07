@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class TemperatureDto {
-    private double temp;
-    private double pressure;
+    private int temp;
+    private int pressure;
 }
