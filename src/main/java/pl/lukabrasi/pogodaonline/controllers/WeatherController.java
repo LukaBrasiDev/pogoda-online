@@ -6,22 +6,31 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.lukabrasi.pogodaonline.services.UserSession;
 import pl.lukabrasi.pogodaonline.services.WeatherLogService;
 
 @Controller
 public class WeatherController {
 
     final WeatherLogService weatherLogService;
+    final UserSession userSession;
 
     @Autowired
-    public WeatherController(WeatherLogService weatherLogService) {
+    public WeatherController(UserSession userSession, WeatherLogService weatherLogService) {
+        this.userSession = userSession;
         this.weatherLogService = weatherLogService;
     }
 
     @GetMapping("/")
-    public String index() {
-        return "index";
+    public String index(Model model) {
+        if (userSession.isUserLogin()) {
+            model.addAttribute("success", "Zalogowano poprawnie!");
+            return "index";
+        }
+        // model.addAttribute("error", "Zaloguj się!");
+        return "login";
     }
+
 
     @PostMapping("/")
     public String index(@RequestParam("cityName") String cityName, Model model) {
