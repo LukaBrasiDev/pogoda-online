@@ -15,6 +15,8 @@
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
             crossorigin="anonymous"></script>
 
+    <!-- do ususus-->
+
 </head>
 <body class="text-center">
 
@@ -61,7 +63,11 @@
                 </tr>
             </table>
 
-            <h4  th:if="${forecast != null}">Prognoza na 5 dni:</h4>
+
+            <br>
+
+
+            <h4 th:if="${forecast != null}">Prognoza na 5 dni:</h4>
 
             <table th:if="${forecast != null}" class="table table-hover">
                 <thead>
@@ -74,11 +80,11 @@
                 </tr>
                 </thead>
                 <tr th:each="weatherAsDay : ${forecast.getWeatherDtoForecast()}">
-                    <td  th:text="${weatherAsDay.getDate()}"></td>
-                    <td  th:text="${weatherAsDay.getMain().getTemp()}"></td>
-                    <td  th:text="${weatherAsDay.getMain().getPressure()}"></td>
-                    <td  th:text="${weatherAsDay.getClouds().getAll()}"></td>
-                    <td  th:text="${weatherAsDay.getWind().getSpeed()}"></td>
+                    <td th:text="${weatherAsDay.getDate()}"></td>
+                    <td th:text="${weatherAsDay.getMain().getTemp()}"></td>
+                    <td th:text="${weatherAsDay.getMain().getPressure()}"></td>
+                    <td th:text="${weatherAsDay.getClouds().getAll()}"></td>
+                    <td th:text="${weatherAsDay.getWind().getSpeed()}"></td>
                 </tr>
             </table>
 

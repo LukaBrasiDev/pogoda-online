@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pogoda Online</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+
+</head>
+<body class="text-center">
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <!--//<h4 th:if="${success!=null || error!=null}" th:class="${'alert '+(success!=null ? 'alert-success' : 'alert-danger')}"
+                  th:text="${success!=null ? success : error}">Poprawnie dodano wpis</h4>-->
+        </div>
+        <div class="col-sm">
+            <form action="/login" method="post" class="form-signin"><h2><br>POGODA
+                <img th:src="@{/images/sun_clouds.png}" alt="" width="72" height="72"> ONLINE</h2>
+                <h3 class="h3 mb-3 font-weight-normal">Logowanie:</h3>
+                <h4 th:if="${error!=null || success!=null}"
+                    th:class="${'alert '+(success!=null ? 'alert-success' : 'alert-danger')}"
+                    th:text="${success!=null ? success : error}"></h4>
+                <label class="sr-only">Login</label>
+                <input name="login" type="text" id="inputLogin" class="form-control" placeholder="Login" required>
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password"
+                       required>
+                <div class="checkbox mb-3">
+
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Zaloguj</button>
+
+            </form>
+            <div class="mt-3">Nie masz konta?
+                <a href="/register">Zarejestruj się</a></div>
+            <p class="mt-3 mb-3 text-muted">Akademia Kodu<br>Java Bootcamp Online 8</p>
+
+        </div>
+        <div class="col-sm">
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

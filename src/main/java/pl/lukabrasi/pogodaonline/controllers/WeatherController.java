@@ -24,7 +24,7 @@ public class WeatherController {
     @GetMapping("/")
     public String index(Model model) {
         if (userSession.isUserLogin()) {
-            model.addAttribute("success", "Zalogowano poprawnie!");
+            model.addAttribute("success", "Jesteś zalogowany!");
             return "index";
         }
         // model.addAttribute("error", "Zaloguj się!");
@@ -37,5 +37,11 @@ public class WeatherController {
         model.addAttribute("weather", weatherLogService.getCurrentWeather(cityName));
         model.addAttribute("forecast", weatherLogService.getWeatherForecast(cityName));
         return "index";
+    }
+
+    @GetMapping("/error")
+    public String error(Model model) {
+        model.addAttribute("error", "Niepoprawna nazwa miasta!");
+        return "redirect:/";
     }
 }
