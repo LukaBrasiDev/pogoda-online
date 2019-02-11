@@ -38,7 +38,7 @@
             var jsonData = $.ajax({
                 url: "http://api.openweathermap.org/data/2.5/forecast?q=Malbork&units=metric&appid=8a437d96e3908633d36fb36b11408a23",
                 dataType: "json",
-                async: false
+                async: true
             }).responseText;
 
             // Create our data table out of JSON data loaded from server.
@@ -48,16 +48,22 @@
             data.addColumn('string', 'Data');
             data.addColumn('number', 'Temp');
             data.addRows([
-                ['11.02', 2],
+                ['11.02', -1],
                 ['12.02', 0],
                 ['13.02', -3],
                 ['14.02', 1],
                 ['15.02', 5]
             ]);
-            /* for (var i = 0; i < jsonData.length; i++) {
-                 data.addRow([jsonData[i].dt_txt, jsonData[i].temp]);
-             }*/
-
+            /*  for (var i = 0; i < jsonData.length; i++) {
+                   data.addRow([jsonData[i].dt_txt, jsonData[i].temp]);
+               }*/
+            /*<tr th:each="weatherAsDay : ${forecast.getWeatherDtoForecast()}">
+                                <td th:text="${weatherAsDay.getDate()}"></td>
+                                <td th:text="${weatherAsDay.getMain().getTemp()}"></td>
+                                <td th:text="${weatherAsDay.getMain().getPressure()}"></td>
+                                <td th:text="${weatherAsDay.getClouds().getAll()}"></td>
+                                <td th:text="${weatherAsDay.getWind().getSpeed()}"></td>
+                            </tr>*/
             var options = {
                 title: 'Prognoza na  5 dni',
                 curveType: 'function',
@@ -142,8 +148,8 @@
                 </tr>
                 </thead>
                 <tr th:each="weatherAsDay : ${forecast.getWeatherDtoForecast()}">
-                    <td th:text="${weatherAsDay.getDate()}" id="xValue"></td>
-                    <td th:text="${weatherAsDay.getMain().getTemp()}" id="yValue"></td>
+                    <td th:text="${weatherAsDay.getDate()}"></td>
+                    <td th:text="${weatherAsDay.getMain().getTemp()}"></td>
                     <td th:text="${weatherAsDay.getMain().getPressure()}"></td>
                     <td th:text="${weatherAsDay.getClouds().getAll()}"></td>
                     <td th:text="${weatherAsDay.getWind().getSpeed()}"></td>
