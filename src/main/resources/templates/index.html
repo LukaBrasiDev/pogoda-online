@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Pogoda Online</title>
+
+
+    <!--usus-->
+
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -14,9 +19,56 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
             crossorigin="anonymous"></script>
+    <!-- do usussu-->
 
-    <!-- do ususus-->
+    <!--Load the AJAX API-->
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+
+    <script type="text/javascript">
+
+        // Load the Visualization API and the piechart package.
+        google.charts.load('current', {'packages': ['corechart']});
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var jsonData = $.ajax({
+                url: "http://api.openweathermap.org/data/2.5/forecast?q=Malbork&units=metric&appid=8a437d96e3908633d36fb36b11408a23",
+                dataType: "json",
+                async: false
+            }).responseText;
+
+            // Create our data table out of JSON data loaded from server.
+            // var data = new google.visualization.DataTable(jsonData)
+
+            var data = new google.visualization.DataTable(jsonData);
+            data.addColumn('string', 'Data');
+            data.addColumn('number', 'Temp');
+            data.addRows([
+                ['11.02', 2],
+                ['12.02', 0],
+                ['13.02', -3],
+                ['14.02', 1],
+                ['15.02', 5]
+            ]);
+            /* for (var i = 0; i < jsonData.length; i++) {
+                 data.addRow([jsonData[i].dt_txt, jsonData[i].temp]);
+             }*/
+
+            var options = {
+                title: 'Prognoza na  5 dni',
+                curveType: 'function',
+                legend: {position: 'bottom'}
+            };
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            chart.draw(data, options, {width: 400, height: 240});
+        }
+
+    </script>
 </head>
 <body class="text-center">
 
@@ -42,25 +94,35 @@
             <table th:if="${weather != null}" class="table table-hover">
                 <thead>
                 <tr>
-                    <th colspan="2" th:if="${weather != null}" th:text="${weather.getName()}"></th>
+                    <th colspan="5" th:if="${weather != null}" th:text="${weather.getName()}"></th>
                 </tr>
                 </thead>
                 <tr>
-                    <td>Temperatura</td>
-                    <td th:if="${weather != null}" th:text="${weather.getMain().getTemp()}+' ' +'°C'"></td>
+                    <td colspan="3">Temperatura</td>
+                    <td th:if="${weather != null}" th:text="${weather.getMain().getTemp()}+' ' +'°C'" colspan="2"></td>
                 </tr>
                 <tr>
-                    <td>Ciśnienie</td>
-                    <td th:if="${weather != null}" th:text="${weather.getMain().getPressure()}+' ' +'hPa'"></td>
+                    <td colspan="3">Ciśnienie</td>
+                    <td th:if="${weather != null}" th:text="${weather.getMain().getPressure()}+' ' +'hPa'"
+                        colspan="2"></td>
                 </tr>
                 <tr>
-                    <td>Zachmurzenie</td>
-                    <td th:text="${weather.getClouds().getAll()}+' ' +'%'"></td>
+                    <td colspan="3">Zachmurzenie</td>
+                    <td th:text="${weather.getClouds().getAll()}+' ' +'%'" colspan="2"></td>
                 </tr>
                 <tr>
-                    <td>Wiatr</td>
-                    <td th:text="${weather.getWind().getSpeed()}+' ' +'m/s'"></td>
+                    <td colspan="3">Wiatr</td>
+                    <td th:text="${weather.getWind().getSpeed()}+' ' +'m/s'" colspan="2"></td>
                 </tr>
+
+                <tr>
+                    <td colspan="5">
+                        <div id="chart_div"></div>
+                    </td>
+
+                </tr>
+
+
             </table>
 
 
@@ -69,7 +131,7 @@
 
             <h4 th:if="${forecast != null}">Prognoza na 5 dni:</h4>
 
-            <table th:if="${forecast != null}" class="table table-hover">
+            <table th:if="${forecast != null}" class="table table-hover" style="width: 300px">
                 <thead>
                 <tr>
                     <td th:if="${forecast != null}" th:text="Data"></td>
@@ -80,8 +142,8 @@
                 </tr>
                 </thead>
                 <tr th:each="weatherAsDay : ${forecast.getWeatherDtoForecast()}">
-                    <td th:text="${weatherAsDay.getDate()}"></td>
-                    <td th:text="${weatherAsDay.getMain().getTemp()}"></td>
+                    <td th:text="${weatherAsDay.getDate()}" id="xValue"></td>
+                    <td th:text="${weatherAsDay.getMain().getTemp()}" id="yValue"></td>
                     <td th:text="${weatherAsDay.getMain().getPressure()}"></td>
                     <td th:text="${weatherAsDay.getClouds().getAll()}"></td>
                     <td th:text="${weatherAsDay.getWind().getSpeed()}"></td>
@@ -98,7 +160,6 @@
         </div>
     </div>
 </div>
-
 
 </body>
 </html>

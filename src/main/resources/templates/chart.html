@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <title>jQuery Ajax</title>
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+    <script type="text/javascript">
+
+        // Load the Visualization API and the piechart package.
+        google.charts.load('current', {'packages': ['corechart']});
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var jsonData = $.ajax({
+                url: "http://api.openweathermap.org/data/2.5/forecast?q=Malbork&units=metric&appid=8a437d96e3908633d36fb36b11408a23",
+                dataType: "json",
+                async: false
+            }).responseText;
+
+            // Create our data table out of JSON data loaded from server.
+            // var data = new google.visualization.DataTable(jsonData)
+
+            var data = new google.visualization.DataTable(jsonData);
+            data.addColumn('string', 'Data');
+            data.addColumn('number', 'Temp');
+            data.addRows([
+                ['11.02', 2],
+                ['12.02', 0],
+                ['13.02', -3],
+                ['14.02', 1],
+                ['15.02', 5]
+            ]);
+            /* for (var i = 0; i < jsonData.length; i++) {
+                 data.addRow([jsonData[i].dt_txt, jsonData[i].temp]);
+             }*/
+
+            var options = {
+                title: 'Prognoza na  5 dni',
+                curveType: 'function',
+                legend: {position: 'bottom'}
+            };
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            chart.draw(data, options, {width: 400, height: 240});
+        }
+
+    </script>
+</head>
+<body>
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+
+</body>
+</html>
