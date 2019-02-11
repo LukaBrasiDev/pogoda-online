@@ -84,11 +84,16 @@
 
         </div>
         <div class="col">
-            <h2><br>POGODA
-                <img th:src="@{/images/sun_clouds.png}" alt="" width="72" height="72"> ONLINE</h2>
-            <h4 th:if="${error!=null || success!=null}"
-                th:class="${'alert '+(success!=null ? 'alert-success' : 'alert-danger')}"
-                th:text="${success!=null ? success : error}">Poprawnie dodano wpis</h4>
+
+
+            <h2><br>POGODA <img th:src="@{/images/sun_clouds.png}" alt="" width="72" height="72"> ONLINE</h2>
+
+            <th:block th:if="${info!=null}" th:switch="${info}">
+                <span th:case="*{info.BAD_CREDENTIALS}" th:class="${'alert alert-danger'}"></span>
+                <span th:case="*{info.BANNED}" th:class="${'alert alert-danger'}"></span>
+                <span th:case="*{info.SUCCESS}" th:class="${'alert alert-success'}"></span>
+            </th:block>
+
             <form th:action="@{/}" method="post" class="form-signin">
                 <input name="cityName" class="form-control" type="text" placeholder="Podaj miasto">
                 <div class="checkbox mb-3">

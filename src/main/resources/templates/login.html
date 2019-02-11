@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Pogoda Online</title>
@@ -21,26 +21,28 @@
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <!--//<h4 th:if="${success!=null || error!=null}" th:class="${'alert '+(success!=null ? 'alert-success' : 'alert-danger')}"
-                  th:text="${success!=null ? success : error}">Poprawnie dodano wpis</h4>-->
+
         </div>
         <div class="col-sm">
-            <form action="/login" method="post" class="form-signin"><h2><br>POGODA
-                <img th:src="@{/images/sun_clouds.png}" alt="" width="72" height="72"> ONLINE</h2>
-                <h3 class="h3 mb-3 font-weight-normal">Logowanie:</h3>
-                <h4 th:if="${error!=null || success!=null}"
-                    th:class="${'alert '+(success!=null ? 'alert-success' : 'alert-danger')}"
-                    th:text="${success!=null ? success : error}"></h4>
+            <h2><br>POGODA <img th:src="@{/images/sun_clouds.png}" alt="" width="72" height="72"> ONLINE</h2>
+            <h3 class="h3 mb-3 font-weight-normal">Logowanie:</h3>
+            <th:block th:if="${info!=null}" th:switch="${info}">
+                <span th:case="*{info.BAD_CREDENTIALS}" th:text="#{Login.info.bad_credentials}"
+                      th:class="${'alert alert-danger'}"></span>
+                <span th:case="*{info.BANNED}" th:class="${'alert alert-danger'}"></span>
+                <span th:case="*{info.SUCCESS}" th:class="${'alert alert-success'}"></span>
+            </th:block>
+            <form th:object="${loginForm}" action="/login" method="post" class="form-signin">
                 <label class="sr-only">Login</label>
-                <input name="login" type="text" id="inputLogin" class="form-control" placeholder="Login" required>
+                <input th:field="*{login}" name="login" type="text" id="inputLogin" class="form-control"
+                       placeholder="Login" required>
                 <label for="inputPassword" class="sr-only">Password</label>
-                <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password"
+                <input th:field="*{password}" name="password" type="password" id="inputPassword" class="form-control"
+                       placeholder="Password"
                        required>
                 <div class="checkbox mb-3">
-
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Zaloguj</button>
-
             </form>
             <div class="mt-3">Nie masz konta?
                 <a href="/register">Zarejestruj się</a></div>

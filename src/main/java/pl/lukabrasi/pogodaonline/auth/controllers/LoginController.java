@@ -1,12 +1,13 @@
-package pl.lukabrasi.pogodaonline.controllers;
+package pl.lukabrasi.pogodaonline.auth.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import pl.lukabrasi.pogodaonline.services.UserService;
+import pl.lukabrasi.pogodaonline.auth.forms.LoginForm;
+import pl.lukabrasi.pogodaonline.auth.services.UserService;
 
 @Controller
 public class LoginController {
@@ -16,16 +17,17 @@ public class LoginController {
 
     @Autowired
     public LoginController(UserService userService) {
+
         this.userService = userService;
     }
 
 
     @GetMapping("/login")
     public String login(Model model) {
-        model.addAttribute("success", "Udało się!");
+        model.addAttribute("loginForm", new LoginForm());
         return "login";
     }
-
+/*
     @PostMapping("/login")
     public String login(
             @RequestParam("login") String login,
@@ -36,7 +38,21 @@ public class LoginController {
             return "login";
         }
         return "redirect:/";
+    }*/
+
+    @PostMapping("/login")
+    public String login(@ModelAttribute LoginForm loginForm,
+                        Model model) { //zmienna1,  zmienna2, zmienna3
+        UserService.LoginResponse loginResponse = userService.login(loginForm);
+        if (loginResponse != UserService.LoginResponse.SUCCESS) {
+            model.addAttribute("info", loginResponse);
+            return "login";
+        }
+
+        return "redirect:/";
     }
+
+
 
     @GetMapping("/logout")
     public String logout() {

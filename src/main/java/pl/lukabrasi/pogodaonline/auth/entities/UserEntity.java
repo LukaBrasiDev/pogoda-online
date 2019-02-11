@@ -1,4 +1,4 @@
-package pl.lukabrasi.pogodaonline.entities;
+package pl.lukabrasi.pogodaonline.auth.entities;
 
 import lombok.Data;
 
@@ -19,6 +19,7 @@ public class UserEntity {
     String password;
     private @Column(name = "email")
     String email;
-
+    //czas rejestracji
+    //status konta
 
 }

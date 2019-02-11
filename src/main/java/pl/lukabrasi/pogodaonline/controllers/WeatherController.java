@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.lukabrasi.pogodaonline.services.UserSession;
+import pl.lukabrasi.pogodaonline.auth.services.UserSession;
 import pl.lukabrasi.pogodaonline.services.WeatherLogService;
 
 @Controller
@@ -23,17 +23,21 @@ public class WeatherController {
 
     @GetMapping("/")
     public String index(Model model) {
-        if (userSession.isUserLogin()) {
+        if (userSession.isLogin()) {
             model.addAttribute("success", "Jesteś zalogowany!");
             return "index";
         }
         // model.addAttribute("error", "Zaloguj się!");
-        return "login";
+        return "redirect:/login";
     }
 
 
     @PostMapping("/")
-    public String index(@RequestParam("cityName") String cityName, Model model) {
+    public String index(@RequestParam("cityName") String cityName,
+                        Model model) {
+        if (!userSession.isLogin()) {
+            return "redirect:/login";
+        }
         model.addAttribute("weather", weatherLogService.getCurrentWeather(cityName));
         model.addAttribute("forecast", weatherLogService.getWeatherForecast(cityName));
         return "index";
