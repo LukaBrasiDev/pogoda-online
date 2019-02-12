@@ -8,6 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, Integer> {//<nazwa encji, typ id>
+
     boolean existsByLogin(String login);
 
     Optional<UserEntity> findByLogin(String login);

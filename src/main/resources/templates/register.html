@@ -24,31 +24,14 @@
 
         </div>
         <div class="col-sm">
-            <!--      <form method="post" action="/register" class="form-signin"><h2><br>POGODA
-                      <img th:src="@{/images/sun_clouds.png}" alt="" width="72" height="72"> ONLINE</h2>
-                      <h3 class="h3 mb-3 font-weight-normal">Rejestracja użytkownika:</h3>
-                      <h4 th:if="${error!=null || success!=null}"
-                          th:class="${'alert '+(success!=null ? 'alert-success' : 'alert-danger')}"
-                          th:text="${success!=null ? success : error}"></h4>
-                      <label class="sr-only">Login</label>
-                      <input name="login" type="login" id="inputLogin" class="form-control" placeholder="Login" required>
-                      <label for="inputEmail" class="sr-only">Email address</label>
-                      <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address"
-                             required autofocus>
-                      <label for="inputPassword" class="sr-only">Password</label>
-                      <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password"
-                             required>
-                      <div class="checkbox mb-3">
-                      </div>
-                      <button class="btn btn-lg btn-primary btn-block" type="submit">Zarejestruj</button>
-
-                  </form>-->
             <h2><br>POGODA <img th:src="@{/images/sun_clouds.png}" alt="" width="72" height="72"> ONLINE</h2>
             <h3 class="h3 mb-3 font-weight-normal">Rejestracja użytkownika:</h3>
             <th:block th:if="${info!=null}" th:switch="${info}">
-                <span th:case="*{info.BAD_CREDENTIALS}" th:class="${'alert alert-danger'}"></span>
-                <span th:case="*{info.BANNED}" th:class="${'alert alert-danger'}"></span>
-                <span th:case="*{info.SUCCESS}" th:class="${'alert alert-success'}"></span>
+                <span th:case="*{info.BAD_CREDENTIALS}" th:text="#{Register.info.bad.credentials}"
+                      th:class="${'alert alert-danger'}"></span>
+                <span th:case="*{info.BANNED}" th:text="#{Login.info.banned}" th:class="${'alert alert-danger'}"></span>
+                <span th:case="*{info.SUCCESS}" th:text="#{Login.info.success}"
+                      th:class="${'alert alert-success'}"></span>
             </th:block>
             <form method="post" action="/register" th:object="${registerForm}" class="form-signin">
                 <label class="sr-only">Login</label>
@@ -65,7 +48,6 @@
                 <div class="checkbox mb-3">
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Zarejestruj</button>
-
             </form>
             <div class="mt-3">
                 <a href="/login">Logowanie</a></div>

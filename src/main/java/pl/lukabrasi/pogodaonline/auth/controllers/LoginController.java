@@ -44,6 +44,7 @@ public class LoginController {
     public String login(@ModelAttribute LoginForm loginForm,
                         Model model) { //zmienna1,  zmienna2, zmienna3
         UserService.LoginResponse loginResponse = userService.login(loginForm);
+
         if (loginResponse != UserService.LoginResponse.SUCCESS) {
             model.addAttribute("info", loginResponse);
             return "login";

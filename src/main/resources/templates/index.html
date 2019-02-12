@@ -89,9 +89,11 @@
             <h2><br>POGODA <img th:src="@{/images/sun_clouds.png}" alt="" width="72" height="72"> ONLINE</h2>
 
             <th:block th:if="${info!=null}" th:switch="${info}">
-                <span th:case="*{info.BAD_CREDENTIALS}" th:class="${'alert alert-danger'}"></span>
-                <span th:case="*{info.BANNED}" th:class="${'alert alert-danger'}"></span>
-                <span th:case="*{info.SUCCESS}" th:class="${'alert alert-success'}"></span>
+                <span th:case="*{info.BAD_CREDENTIALS}" th:text="#{Login.info.bad.credentials}"
+                      th:class="${'alert alert-danger'}"></span>
+                <span th:case="*{info.BANNED}" th:text="#{Login.info.banned}" th:class="${'alert alert-danger'}"></span>
+                <span th:case="*{info.SUCCESS}" th:text="#{Login.info.success}"
+                      th:class="${'alert alert-success'}"></span>
             </th:block>
 
             <form th:action="@{/}" method="post" class="form-signin">
@@ -142,7 +144,7 @@
 
             <h4 th:if="${forecast != null}">Prognoza na 5 dni:</h4>
 
-            <table th:if="${forecast != null}" class="table table-hover" style="width: 300px">
+            <table th:if="${forecast != null}" class="table table-hover table-sm" style="font-size: 8pt">
                 <thead>
                 <tr>
                     <td th:if="${forecast != null}" th:text="Data"></td>

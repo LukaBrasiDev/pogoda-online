@@ -14,10 +14,10 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    public boolean registerUser(RegisterForm registerForm) {
+    public LoginResponse registerUser(RegisterForm registerForm) {
 
         if (!isLoginFree(registerForm.getLogin())) {
-            return false;
+            return LoginResponse.BAD_CREDENTIALS;
 
         }
 
@@ -27,8 +27,14 @@ public class UserService {
         userEntity.setEmail(registerForm.getEmail());
 
         userRepository.save(userEntity);
-        return true;
+        return LoginResponse.SUCCESS;
 
+    }
+
+    public enum LoginResponse {
+        SUCCESS,
+        BAD_CREDENTIALS,
+        BANNED
     }
 
     final UserRepository userRepository;
@@ -84,9 +90,4 @@ public class UserService {
     }
 
 
-    public enum LoginResponse {
-        SUCCESS,
-        BAD_CREDENTIALS,
-        BANNED
-    }
 }

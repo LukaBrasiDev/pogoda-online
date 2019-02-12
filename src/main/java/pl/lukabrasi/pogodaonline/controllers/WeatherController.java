@@ -23,12 +23,11 @@ public class WeatherController {
 
     @GetMapping("/")
     public String index(Model model) {
-        if (userSession.isLogin()) {
-            model.addAttribute("success", "Jesteś zalogowany!");
-            return "index";
+        if (!userSession.isLogin()) {
+            return "redirect:/login";
         }
-        // model.addAttribute("error", "Zaloguj się!");
-        return "redirect:/login";
+
+        return "index";
     }
 
 

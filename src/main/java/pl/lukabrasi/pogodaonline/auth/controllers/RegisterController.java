@@ -46,12 +46,12 @@ public class RegisterController {
     @PostMapping("/register")
     public String register(@ModelAttribute RegisterForm registerForm,
                            Model model) {
-
-        if (!userService.registerUser(registerForm)) {
-            model.addAttribute("info", "Login jest już zajęty!");
+        UserService.LoginResponse registerResponse = userService.registerUser(registerForm);
+        if (registerResponse != UserService.LoginResponse.SUCCESS) {
+            model.addAttribute("info", registerResponse);
             return "register";
         }
-        userService.registerUser(registerForm);
+
         return "redirect:/login";
     }
 

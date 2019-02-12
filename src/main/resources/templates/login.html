@@ -27,10 +27,11 @@
             <h2><br>POGODA <img th:src="@{/images/sun_clouds.png}" alt="" width="72" height="72"> ONLINE</h2>
             <h3 class="h3 mb-3 font-weight-normal">Logowanie:</h3>
             <th:block th:if="${info!=null}" th:switch="${info}">
-                <span th:case="*{info.BAD_CREDENTIALS}" th:text="#{Login.info.bad_credentials}"
+                <span th:case="*{info.BAD_CREDENTIALS}" th:text="#{Login.info.bad.credentials}"
                       th:class="${'alert alert-danger'}"></span>
-                <span th:case="*{info.BANNED}" th:class="${'alert alert-danger'}"></span>
-                <span th:case="*{info.SUCCESS}" th:class="${'alert alert-success'}"></span>
+                <span th:case="*{info.BANNED}" th:text="#{Login.info.banned}" th:class="${'alert alert-danger'}"></span>
+                <span th:case="*{info.SUCCESS}" th:text="#{Login.info.success}"
+                      th:class="${'alert alert-success'}"></span>
             </th:block>
             <form th:object="${loginForm}" action="/login" method="post" class="form-signin">
                 <label class="sr-only">Login</label>
