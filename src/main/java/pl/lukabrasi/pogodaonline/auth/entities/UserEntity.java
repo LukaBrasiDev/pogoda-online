@@ -22,4 +22,7 @@ public class UserEntity {
     //czas rejestracji
     //status konta
 
+/*    @OneToMany(mappedBy = "user")
+    private List<WeatherLogEntity> weatherLog;*/
+
 }

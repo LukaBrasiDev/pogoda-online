@@ -1,4 +1,4 @@
-package pl.lukabrasi.pogodaonline.dtos;
+package pl.lukabrasi.pogodaonline.weather.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -12,6 +12,5 @@ public class WeatherDto {
     private String name;
     @JsonProperty("dt_txt")
     private String date;
-
 
 }

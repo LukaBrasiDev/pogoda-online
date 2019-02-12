@@ -1,4 +1,4 @@
-package pl.lukabrasi.pogodaonline.dtos;
+package pl.lukabrasi.pogodaonline.weather.dtos;
 
 import lombok.Data;
 

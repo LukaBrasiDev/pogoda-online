@@ -1,4 +1,4 @@
-package pl.lukabrasi.pogodaonline.controllers;
+package pl.lukabrasi.pogodaonline.weather.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.lukabrasi.pogodaonline.auth.services.UserSession;
-import pl.lukabrasi.pogodaonline.services.WeatherLogService;
+import pl.lukabrasi.pogodaonline.weather.services.WeatherLogService;
 
 @Controller
 public class WeatherController {
