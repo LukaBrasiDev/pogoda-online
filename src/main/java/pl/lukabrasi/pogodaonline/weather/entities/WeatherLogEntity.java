@@ -2,6 +2,7 @@ package pl.lukabrasi.pogodaonline.weather.entities;
 
 
 import lombok.Data;
+import pl.lukabrasi.pogodaonline.auth.entities.UserEntity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,7 +21,19 @@ public class WeatherLogEntity {
     private @Column(name = "query_time")
     LocalDateTime queryTime;
 
-    // @ManyToOne
-    // @JoinColumn(name = "user_id")
-    // private UserEntity user;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
+    @Override
+    public String toString() {
+        return "WeatherLogEntity{" +
+                "id=" + id +
+                ", cityName='" + cityName + '\'' +
+                ", cityTemp=" + cityTemp +
+                ", queryTime=" + queryTime +
+                //     ", user=" + user +
+                '}';
+    }
 }

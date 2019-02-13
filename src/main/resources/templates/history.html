@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Pogoda Online</title>
@@ -20,7 +20,26 @@
 
 <h2><br>POGODA <img th:src="@{/images/sun_clouds.png}" alt="" width="72" height="72"> ONLINE</h2>
 
-<h4>Podaj inne miasto</h4>
+<h4>Historia</h4>
+<br>
+
+<table th:if="${logs != null}" class="table table-hover table-sm" style="font-size: 10pt">
+    <thead>
+    <tr>
+        <td th:if="${logs != null}" th:text="Data"></td>
+        <td th:if="${logs != null}" th:text="Miasto"></td>
+        <td th:if="${logs != null}" th:text="Temperatura"></td>
+
+
+    </tr>
+    </thead>
+    <tr th:each="log : ${logs}">
+        <td th:text="${log.getQueryTime()}"></td>
+        <td th:text="${log.getCityName()}"></td>
+        <td th:text="${log.getCityTemp()}"></td>
+
+    </tr>
+</table>
 <br>
 <a th:href="@{/}" href="/index.html">POWRÓT</a>
 </body>

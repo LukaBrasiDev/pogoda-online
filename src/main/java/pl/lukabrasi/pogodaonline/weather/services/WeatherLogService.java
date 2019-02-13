@@ -5,23 +5,30 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import pl.lukabrasi.pogodaonline.auth.services.UserSession;
 import pl.lukabrasi.pogodaonline.weather.dtos.ForecastDto;
 import pl.lukabrasi.pogodaonline.weather.dtos.WeatherDto;
 import pl.lukabrasi.pogodaonline.weather.entities.WeatherLogEntity;
 import pl.lukabrasi.pogodaonline.weather.mappers.WeatherDtoToWeatherEntityMapper;
 import pl.lukabrasi.pogodaonline.weather.repositories.WeatherLogRepository;
 
+import java.util.List;
+
 @Service
 public class WeatherLogService {
     final WeatherLogRepository weatherLogRepository;
+    final UserSession userSession;
 
     @Autowired
-    public WeatherLogService(WeatherLogRepository weatherLogRepository) {
+    public WeatherLogService(WeatherLogRepository weatherLogRepository, UserSession userSession) {
         this.weatherLogRepository = weatherLogRepository;
+        this.userSession = userSession;
     }
+
 
     public boolean saveWeatherLog(WeatherDto weatherDto) {
         WeatherLogEntity weatherLogEntity = WeatherDtoToWeatherEntityMapper.convert(weatherDto);
+        weatherLogEntity.setUser(userSession.getUserEntity());
         return weatherLogRepository.save(weatherLogEntity) != null;
 
     }
@@ -42,7 +49,10 @@ public class WeatherLogService {
         return forecastDto;
     }
 
+    public List<WeatherLogEntity> getWeatherLogFromUser() {
 
+        return weatherLogRepository.findAllByUser(userSession.getUserEntity());
+    }
     @Bean
     public RestTemplate getRestTemplate() {
         return new RestTemplate();
