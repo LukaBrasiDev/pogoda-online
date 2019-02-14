@@ -47,19 +47,6 @@ public class UserService {
     }
 
 
-/*    public boolean addUser(String login, String password, String email) {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setLogin(login);
-        userEntity.setEmail(email);
-        userEntity.setPassword(password);
-
-
-        if (userRepository.existsByLogin(login)) {
-            return false;
-        }
-        return userRepository.save(userEntity) != null;
-    }*/
-
     private boolean isLoginFree(String login) {
         return !userRepository.existsByLogin(login);
     }

@@ -27,18 +27,7 @@ public class LoginController {
         model.addAttribute("loginForm", new LoginForm());
         return "login";
     }
-/*
-    @PostMapping("/login")
-    public String login(
-            @RequestParam("login") String login,
-            @RequestParam("password") String password,
-            Model model) {
-        if (!userService.tryLogin(login, password)) {
-            model.addAttribute("error", "Błędne dane");
-            return "login";
-        }
-        return "redirect:/";
-    }*/
+
 
     @PostMapping("/login")
     public String login(@ModelAttribute LoginForm loginForm,

@@ -19,22 +19,6 @@ public class RegisterController {
         this.userService = userService;
     }
 
-/*    @GetMapping("/register")
-    public String login() {
-        return "register";
-    }
-
-    @PostMapping("/register")
-    public String login(@RequestParam("login") String login,
-                        @RequestParam("password") String password,
-                        @RequestParam("email") String email,
-                        Model model) {
-        if (!userService.addUser(login, password, email)) {
-            model.addAttribute("error", "Nick jest zajęty!");
-            return "register";
-        }
-        return "redirect:/login"; // udalo sie
-    }*/
 
     @GetMapping("/register")
     public String register(Model model) {
