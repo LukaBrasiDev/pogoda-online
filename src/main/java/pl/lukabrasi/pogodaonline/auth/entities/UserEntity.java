@@ -24,7 +24,14 @@ public class UserEntity {
     //czas rejestracji
     //status konta
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.EAGER,
+            orphanRemoval = true,
+            cascade = {
+
+
+                    CascadeType.REMOVE,
+            })
     private List<WeatherLogEntity> weatherLog;
 
 

@@ -29,6 +29,7 @@
         <td th:if="${logs != null}" th:text="Data"></td>
         <td th:if="${logs != null}" th:text="Miasto"></td>
         <td th:if="${logs != null}" th:text="Temperatura"></td>
+        <td th:if="${logs != null}"></td>
 
 
     </tr>
@@ -37,7 +38,10 @@
         <td th:text="${log.getQueryTime()}"></td>
         <td th:text="${log.getCityName()}"></td>
         <td th:text="${log.getCityTemp()}"></td>
-
+        <td>
+            <!--   <a th:href="@{/history/{id}(id=${log.id})}">Delete</a>-->
+            <a th:href="@{/history/{id}(id=${log.id})}" class="btn btn-danger" th:method="delete">Delete</a>
+        </td>
     </tr>
 </table>
 <br>

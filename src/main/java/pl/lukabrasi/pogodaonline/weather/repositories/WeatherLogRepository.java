@@ -11,4 +11,6 @@ import java.util.List;
 public interface WeatherLogRepository extends CrudRepository<WeatherLogEntity, Integer> {
 
     List<WeatherLogEntity> findAllByUser(UserEntity userEntity);
+
+
 }

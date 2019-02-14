@@ -13,6 +13,7 @@ import pl.lukabrasi.pogodaonline.weather.mappers.WeatherDtoToWeatherEntityMapper
 import pl.lukabrasi.pogodaonline.weather.repositories.WeatherLogRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WeatherLogService {
@@ -53,6 +54,18 @@ public class WeatherLogService {
 
         return weatherLogRepository.findAllByUser(userSession.getUserEntity());
     }
+
+
+    public void deleteWeatherLogEntityById(int id) {
+        Optional<WeatherLogEntity> weatherLogEntity = weatherLogRepository.findById(id);
+        if (weatherLogEntity.isPresent()) {
+            weatherLogRepository.deleteById(id);
+
+        }
+    }
+
+
+
     @Bean
     public RestTemplate getRestTemplate() {
         return new RestTemplate();
