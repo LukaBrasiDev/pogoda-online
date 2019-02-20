@@ -20,33 +20,45 @@
 
 <h2><br>POGODA <img th:src="@{/images/sun_clouds.png}" alt="" width="72" height="72"> ONLINE</h2>
 
-<h4>Historia</h4>
+<h4>Edycja</h4>
 <br>
 
-<table th:if="${logs != null}" class="table table-hover table-sm" style="font-size: 10pt">
+<table th:if="${log != null}" class="table table-hover table-sm" style="font-size: 10pt">
     <thead>
     <tr>
-        <td th:if="${logs != null}" th:text="Data"></td>
-        <td th:if="${logs != null}" th:text="Miasto"></td>
-        <td th:if="${logs != null}" th:text="Temperatura"></td>
-        <td th:if="${logs != null}"></td>
+        <td th:if="${log != null}" th:text="Data"></td>
+        <td th:if="${log != null}" th:text="Miasto"></td>
+        <td th:if="${log != null}" th:text="Temperatura"></td>
+        <td th:if="${log != null}"></td>
 
 
     </tr>
     </thead>
-    <tr th:each="log : ${logs}">
+    <tr>
         <td th:text="${log.getQueryTime()}"></td>
         <td th:text="${log.getCityName()}"></td>
         <td th:text="${log.getCityTemp()}"></td>
-        <td>
-            <a class="btn btn-outline-warning" th:href="@{/edit/{id}(id=${log.id})}" role="button">Edytuj</a>
-            <a class="btn btn-outline-danger" th:href="@{/history/{id}(id=${log.id})}" role="button">Usuń</a>
+        <td></td>
+    </tr>
+    <tr>
+        <!-- <td><input></td>
+         <td><input></td>
+         <td><input></td>
+         <td>       </td>-->
 
+        <form method="post" th:action="@{/edit/{id}(id=${log.id})}" th:object="${weatherForm}">
+            <!--   <label >Time</label>
+               <input th:field="*{queryTime}" name="queryTime"  th:value="${log.getQueryTime()}">
+           --> <label>City</label>
+            <input th:field="*{cityName}" name="cityName" th:value="${log.getCityName()}">
+            <label>Temperatura</label>
+            <input th:field="*{cityTemp}" name="cityTemp" th:value="${log.getCityTemp()}">
 
-        </td>
+            <button class="btn btn-outline-danger" type="submit">Zapisz</button>
+        </form>
     </tr>
 </table>
 <br>
-<a th:href="@{/}" href="/index.html">POWRÓT</a>
+<a th:href="@{/history}">POWRÓT</a>
 </body>
 </html>

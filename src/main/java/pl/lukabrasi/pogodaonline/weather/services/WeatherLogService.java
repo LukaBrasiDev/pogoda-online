@@ -9,10 +9,12 @@ import pl.lukabrasi.pogodaonline.auth.services.UserSession;
 import pl.lukabrasi.pogodaonline.weather.dtos.ForecastDto;
 import pl.lukabrasi.pogodaonline.weather.dtos.WeatherDto;
 import pl.lukabrasi.pogodaonline.weather.entities.WeatherLogEntity;
+import pl.lukabrasi.pogodaonline.weather.forms.WeatherForm;
 import pl.lukabrasi.pogodaonline.weather.mappers.WeatherDtoToWeatherEntityMapper;
 import pl.lukabrasi.pogodaonline.weather.repositories.WeatherLogRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WeatherLogService {
@@ -58,6 +60,28 @@ public class WeatherLogService {
     public void deleteWeatherLogEntityById(int id) {
 
         weatherLogRepository.deleteById(id);
+
+    }
+
+    public WeatherLogEntity getWeatherLogEntityById(int id) {
+        Optional<WeatherLogEntity> optionalWeatherLogEntity = weatherLogRepository.findById(id);
+        if (optionalWeatherLogEntity.isPresent()) {
+            return optionalWeatherLogEntity.get();
+        }
+        return null;
+
+    }
+
+    public void updateWeatherLogEntity(int id, WeatherForm weatherForm) {
+
+
+        Optional<WeatherLogEntity> optionalWeatherLogEntity = weatherLogRepository.findById(id);
+
+        optionalWeatherLogEntity.get().setCityName(weatherForm.getCityName());
+        optionalWeatherLogEntity.get().setCityTemp(weatherForm.getCityTemp());
+        //  optionalWeatherLogEntity.get().setQueryTime(weatherForm.getQueryTime());
+        weatherLogRepository.save(optionalWeatherLogEntity.get());
+
 
     }
 

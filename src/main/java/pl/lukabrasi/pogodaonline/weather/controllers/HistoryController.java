@@ -33,18 +33,14 @@ public class HistoryController {
     }
 
 
-
     @RequestMapping(value = "/history/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable(value = "id") int id) {
         if (!userSession.isLogin()) {
             return "redirect:/login";
         }
         weatherLogService.deleteWeatherLogEntityById(id);
-
-
         return "redirect:/history";
     }
-
 
 
 }
